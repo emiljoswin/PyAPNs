@@ -11,6 +11,7 @@ and then do
 
     $ pip install -r requirements.txt 
 
+*- thank you, emiljoswin*
 
 # PyAPNs 
 

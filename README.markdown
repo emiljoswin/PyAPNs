@@ -1,3 +1,17 @@
+Changed library to run on python 3.  
+For installation use the command  
+
+    $ pip install -e git+https://github.com/emiljoswin/PyAPNs#egg=PyApns  
+    
+ Or if you are using requirements.txt put this line instead of the normal line for apns  
+
+    -e git+https://github.com/emiljoswin/PyAPNs@c1e9d517a7b7686e8b4c2ea196965881e147ea92#egg=apns-master  
+    
+and then do 
+
+    $ pip install -r requirements.txt 
+
+
 # PyAPNs 
 
 A Python library for interacting with the Apple Push Notification service 

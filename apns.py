@@ -195,7 +195,7 @@ class APNsConnection(object):
         _logger.debug("%s APNS connection establishing..." % self.__class__.__name__)
 
         # Fallback for socket timeout.
-        for i in xrange(3):
+        for i in range(3):
             try:
                 self._socket = socket(AF_INET, SOCK_STREAM)
                 self._socket.settimeout(self.timeout)
@@ -214,7 +214,7 @@ class APNsConnection(object):
                 try:
                     self._ssl.do_handshake()
                     break
-                except ssl.SSLError, err:
+                except ssl.SSLError as err:
                     if ssl.SSL_ERROR_WANT_READ == err.args[0]:
                         select.select([self._ssl], [], [])
                     elif ssl.SSL_ERROR_WANT_WRITE == err.args[0]:
@@ -223,11 +223,11 @@ class APNsConnection(object):
                         raise
         else:
             # Fallback for 'SSLError: _ssl.c:489: The handshake operation timed out'
-            for i in xrange(3):
+            for i in range(3):
                 try:
                     self._ssl = wrap_socket(self._socket, self.key_file, self.cert_file)
                     break
-                except SSLError, ex:
+                except SSLError as ex:
                     if ex.args[0] == SSL_ERROR_WANT_READ:
                         sys.exc_clear()
                     elif ex.args[0] == SSL_ERROR_WANT_WRITE:
@@ -516,7 +516,7 @@ class GatewayConnection(APNsConnection):
             message = self._get_enhanced_notification(token_hex, payload,
                                                            identifier, expiry)
             
-            for i in xrange(WRITE_RETRY):
+            for i in range(WRITE_RETRY):
                 try:
                     with self._send_lock:
                         self._make_sure_error_response_handler_worker_alive()
@@ -539,7 +539,7 @@ class GatewayConnection(APNsConnection):
         if (not self._error_response_handler_worker 
             or not self._error_response_handler_worker.is_alive()):
             self._init_error_response_handler_worker()
-            for _ in xrange(3):
+            for _ in range(3):
                 if self._error_response_handler_worker.is_alive():
                     return
                 time.sleep(1)

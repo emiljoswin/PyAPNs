@@ -102,7 +102,7 @@ class TestAPNs(unittest.TestCase):
         feedback_server._chunks = mock_chunks_generator
 
         i = 0;
-        for (token_hex, fail_time) in feedback_server.items():
+        for (token_hex, fail_time) in list(feedback_server.items()):
             self.assertEqual(token_hex, mock_tokens[i])
             i += 1
         self.assertEqual(i, NUM_MOCK_TOKENS)
@@ -204,9 +204,9 @@ class TestAPNs(unittest.TestCase):
             '.' * (max_raw_payload_bytes + 1))
 
         # Test unicode 2-byte characters payload
-        Payload(u'\u0100' * int(max_raw_payload_bytes / 2))
+        Payload('\u0100' * int(max_raw_payload_bytes / 2))
         self.assertRaises(PayloadTooLargeError, Payload,
-            u'\u0100' * (int(max_raw_payload_bytes / 2) + 1))
+            '\u0100' * (int(max_raw_payload_bytes / 2) + 1))
 
 if __name__ == '__main__':
     unittest.main()
